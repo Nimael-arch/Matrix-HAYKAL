@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -38,238 +37,101 @@
       overflow-y: auto;
     }
 
+    #output {
+      direction: rtl;
+      text-align: right;
+      white-space: pre-wrap;
+    }
+
     .prompt {
       animation: blink 1s infinite;
+      direction: rtl;
+      display: inline;
     }
 
     @keyframes blink {
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
-	#output {
-    
-    text-align: right;
-    white-space: pre-wrap;
-  }
-  </style>
-</head>
-<body>
-  < id="matrix"></>
-
-  <div class="terminal">
-    <div id="output"></div>
-    <div class="prompt">_</div>
-  </div>
-
-  <script>
-    // Matrix background animation
-    const   canvas1 = document.getElementById('matrix');
-    const  ctx = canvas1.getContext('2d');
-
-    canvas1.height = window.innerHeight;
-    canvas1.width = window.innerWidth;
-
-    const letters = 'アァイィウエエオカキクケコサシスセソ0123456789'.split('');
-    const fontSize = 14;
-    const columns = canvas1.width / fontSize;
-    const drops = Array.from({ length: columns }, () => 1);
-
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas1.width, canvas1.height);
-      ctx.fillStyle = '#0F0';
-      ctx.font = `${fontSize}px monospace`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas1.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-
-    setInterval(drawMatrix, 33);
-
-    // AI terminal text simulation
-    const output = document.getElementById('output');
-
-    const messages = [
-		"ما راح يجي أحد ينقذك",
-		"لا زعيم، ولا حزب، ولا منصّة",
-		"إذا ما صحيت",
-		" إذا ما وعيت",
-		"إذا ما سألت ليش؟ وشنو بعد؟",
-		"راح تبقى تدور بنفس الدائرة…",
-		"وأنت تستحق أكثر",
-		"هاي لحظة  صدق",
-		"الوطن ما يننهض إلا بوعيك",
-		": والوعي يبدأ من قرار بسيط",
-		"أني ما أقبل أعيش نفس الكذبة بعد اليوم",
-		"**************************************",
-		"إذا وصلتك هاي الرسالة،",
-		"فاعرف إنك مو غريب…",
-		"أنت واحد منّا",
-		"وإحنا جايين نكتب فصل جديد… سوا.",
-		"فريق حي كال ينتضرك",
-
-    ];
-
-    let currentMessage = 0;
-
-	const keySound = new Audio('key.mp3');
-  keySound.volume = 0.2; // Réduit le volume pour pas que ce soit trop agressif
-
-  function playKeySound() {
-    const sound = keySound.cloneNode(); // Pour permettre un son à chaque touche
-    sound.play();
-  }
-
-  function typeMessage(message, i = 0) {
-    if (i < message.length) {
-      output.innerHTML += message.charAt(i);
-      playKeySound(); // 💥 Le son est joué ici
-      setTimeout(() => typeMessage(message, i + 1), 40);
-    } else {
-      output.innerHTML += "<br/><br/>";
-      currentMessage++;
-      if (currentMessage < messages.length) {
-        setTimeout(() => typeMessage(messages[currentMessage]), 1000);
-      }
-    }
-  }
-    setTimeout(() => typeMessage(messages[currentMessage]), 1000);
-  </script>
-</body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>La Matrice te parle</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-      background: black;
-      font-family: 'Courier New', Courier, monospace;
-    }
-
-    canvas#matrix {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-
-    .terminal {
-      position: absolute;
-      z-index: 2;
-      color: #00FF00;
-      padding: 20px;
-      top: 10%;
-      left: 10%;
-      width: 80%;
-      max-height: 80%;
-      background-color: rgba(0, 0, 0, 0.6);
-      border: 1px solid #00FF00;
-      box-shadow: 0 0 20px #00FF00;
-      font-size: 1.2rem;
-      overflow-y: auto;
-    }
-
-    .prompt {
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-	#output {
-    direction: rtl;
-    text-align: right;
-    white-space: pre-wrap;
-  }
   </style>
 </head>
 <body>
   <canvas id="matrix"></canvas>
 
   <div class="terminal">
-    <div id="output"></div>
-    <div class="prompt">_</div>
+    <div id="output"><span class="prompt">_</span></div>
   </div>
 
   <script>
-    // Matrix background animation
-    const canvas1 = document.getElementById('matrix');
-    const ctx = canvas1.getContext('2d');
-
-    canvas1.height = window.innerHeight;
-    canvas1.width = window.innerWidth;
+    // Matrix animation
+    let canvas = document.getElementById('matrix');
+    let ctx = canvas.getContext('2d');
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
     const letters = 'アァイィウエエオカキクケコサシスセソ0123456789'.split('');
     const fontSize = 14;
-    const columns = canvas1.width / fontSize;
+    const columns = canvas.width / fontSize;
     const drops = Array.from({ length: columns }, () => 1);
 
     function drawMatrix() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas1.width, canvas1.height);
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#0F0';
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas1.height && Math.random() > 0.975) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
         drops[i]++;
       }
     }
 
-    setInterval(drawMatrix, 33);
-
-    // AI terminal text simulation
     const output = document.getElementById('output');
+    const prompt = document.querySelector('.prompt');
+
+    const keySound = new Audio('key.mp3');
+    keySound.volume = 0.07; // 🧠 Doux et subtil
 
     const messages = [
-		"ما راح يجي أحد ينقذك",
-		"لا زعيم، ولا حزب، ولا منصّة",
-		" … إذا ما صحيت",
-		" …إذا ما وعيت",
-		"إذا ما سألت ليش؟ وشنو بعد؟",
-		"راح تبقى تدور بنفس الدائرة…",
-		"وأنت تستحق أكثر",
-		"هذه لحظة الصدق",
-		"الوطن ما يننهض إلا بوعيك",
-		"والوعي يبدأ من قرار بسيط",
-		"أني ما أقبل أعيش نفس الكذبة بعد اليوم",
-		"إذا وصلتك هاي الرسالة،",
-		"فاعرف إنك مو غريب…",
-		"أنت واحد منّا",
-		"وإحنا جايين نكتب فصل جديد… سوا.",
-		"فريق حي كال ينتضرك",
-
+      "ما راح يجي أحد ينقذك",
+      "لا زعيم، ولا حزب، ولا منصّة",
+      "إذا ما صحيت",
+      "إذا ما وعيت",
+      "إذا ما سألت ليش؟ وشنو بعد؟",
+      "راح تبقى تدور بنفس الدائرة…",
+      "وأنت تستحق أكثر",
+      "هاي لحظة صدق",
+      "الوطن ما ينهض إلا بوعيك",
+      " والوعي يبدأ من قرار بسيط :",
+      "أني ما أقبل أعيش نفس الكذبة بعد اليوم",
+      "إذا وصلتك هاي الرسالة،",
+      "فاعرف إنك مو غريب…",
+      "أنت واحد منّا",
+      "وإحنا جايين نكتب فصل جديد… سوا.",
+      "فريق حي كال ينتظرك"
     ];
 
     let currentMessage = 0;
 
+    function playKeySoundSafe() {
+      try {
+        const s = keySound.cloneNode();
+        s.play().catch(() => {}); // fail-safe si bloqué
+      } catch (e) {}
+    }
+
     function typeMessage(message, i = 0) {
       if (i < message.length) {
-        output.innerHTML += message.charAt(i);
+        prompt.insertAdjacentText('beforebegin', message.charAt(i));
+        playKeySoundSafe();
         setTimeout(() => typeMessage(message, i + 1), 40);
       } else {
-        output.innerHTML += "<br/><br/>";
+        output.insertAdjacentHTML('beforeend', "<br/><br/>");
+        output.appendChild(prompt);
         currentMessage++;
         if (currentMessage < messages.length) {
           setTimeout(() => typeMessage(messages[currentMessage]), 1000);
@@ -277,9 +139,11 @@
       }
     }
 
-    setTimeout(() => typeMessage(messages[currentMessage]), 1000);
+    // 🧠 Lancement auto sans clic
+    window.onload = () => {
+      setInterval(drawMatrix, 33);
+      typeMessage(messages[currentMessage]);
+    };
   </script>
 </body>
 </html>
->>>>>>> 09f29628b48543579a1fcf6ca4c4b0648f76e689
-
