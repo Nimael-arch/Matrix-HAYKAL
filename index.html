@@ -47,7 +47,7 @@
       51%, 100% { opacity: 0; }
     }
 	#output {
-    direction: rtl;
+    
     text-align: right;
     white-space: pre-wrap;
   }
@@ -119,19 +119,27 @@
 
     let currentMessage = 0;
 
-    function typeMessage(message, i = 0) {
-      if (i < message.length) {
-        output.innerHTML += message.charAt(i);
-        setTimeout(() => typeMessage(message, i + 1), 40);
-      } else {
-        output.innerHTML += "<br/><br/>";
-        currentMessage++;
-        if (currentMessage < messages.length) {
-          setTimeout(() => typeMessage(messages[currentMessage]), 1000);
-        }
+	const keySound = new Audio('key.mp3');
+  keySound.volume = 0.2; // Réduit le volume pour pas que ce soit trop agressif
+
+  function playKeySound() {
+    const sound = keySound.cloneNode(); // Pour permettre un son à chaque touche
+    sound.play();
+  }
+
+  function typeMessage(message, i = 0) {
+    if (i < message.length) {
+      output.innerHTML += message.charAt(i);
+      playKeySound(); // 💥 Le son est joué ici
+      setTimeout(() => typeMessage(message, i + 1), 40);
+    } else {
+      output.innerHTML += "<br/><br/>";
+      currentMessage++;
+      if (currentMessage < messages.length) {
+        setTimeout(() => typeMessage(messages[currentMessage]), 1000);
       }
     }
-
+  }
     setTimeout(() => typeMessage(messages[currentMessage]), 1000);
   </script>
 </body>
@@ -274,3 +282,4 @@
 </body>
 </html>
 >>>>>>> 09f29628b48543579a1fcf6ca4c4b0648f76e689
+
