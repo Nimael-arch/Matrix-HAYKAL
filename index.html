@@ -127,11 +127,14 @@
         s.play().catch(() => {}); // fail-safe si bloqué
       } catch (e) {}
     }
-
+  	function autoScroll() {
+  	  const terminal = document.querySelector('.terminal');
+  	  terminal.scrollTop = terminal.scrollHeight;
+  	}
     function typeMessage(message, i = 0) {
       if (i < message.length) {
         prompt.insertAdjacentText('beforebegin', message.charAt(i));
-        playKeySoundSafe();
+        autoScroll();
         setTimeout(() => typeMessage(message, i + 1), 40);
       } else {
         output.insertAdjacentHTML('beforeend', "<br/><br/>");
